@@ -96,7 +96,7 @@ function showForm() {
             } else if (peso <= 2000) {
                 return peso * tarifa[23];
             } else if (peso <= 3000) {
-                return tarifa[24];
+                return peso * tarifa[24];
             }
             else {
                 return peso * tarifa[25];
@@ -106,13 +106,24 @@ function showForm() {
         // Seleccionar la tarifa según la provincia de destino
         if (provinciaDestino === 'Cáceres' || provinciaDestino === 'Badajoz') {
             // Tabla 1
-            tarifaPorKg = [7.20, 9.15, 9.53, 10.72, 0.054];
+            tarifaPorKg = [7.20, 9.15, 9.53, 10.72,12.14,13.33,14.33,15.71,17.08,20.45,24.52,29.33,33.69,37.55,40.85,44.07,
+                           46.67,51.99,61.89,68.52,75.17,81.74,88.44,0.0810,0.0760];
         } else if (provinciaDestino === 'Madrid' || provinciaDestino === 'Sevilla') {
             // Tabla 2
-            tarifaPorKg = [7, 9, 10, 0.070];
+            tarifaPorKg = [20.95,22.83,24.00,26.05,27.86,29.84,31.74,34.59,37.18,39.75,51.50,60.52,64.15,71.95,78.69,86.33,
+                           92.63,104.59,111.85,125.79,145.67,164.07,186.91,0.1690,0.1570];
+        } else if (provinciaDestino === 'Valladolid' || provinciaDestino === 'Segovia' || provinciaDestino === 'Ciudad Real') {
+            // Tabla 2
+            tarifaPorKg = [21.61,23.49,25.05,27.45,29.62,31.96,34.30,37.39,40.33,43.26,55.42,66.46,71.21,80.40,88.82,97.90,
+                           105.33,118.67,127.86,144.49,167.04,188.09,213.61,0.1950,0.1830];
+        } else if (provinciaDestino === 'Islas Baleares') {
+            // Tabla 2
+            tarifaPorKg = [25.59,29.06,31.97,35.68,39.16,42.82,46.38,49.41,55.13,59.39,75.37,95.83,106.44,122.39,138.32,154.28,
+                           170.37,190.63,213.61,245.51,281.85,316.71,356.02,0.3310,0.3070];
         } else {
             // Tabla 3
-            tarifaPorKg = [9, 11, 11, 0.154];
+            tarifaPorKg = [22.25,24.17,26.09,28.86,31.37,34.06,36.65,40.21,43.48,46.77,59.34,72.39,78.26,88.87,98.95,109.48,
+                           118.01,132.77,144.49,163.18,188.40,212.13,240.32,0.2200,0.2090];
         }
 
         // Calcular el precio basado en kilos y volumen
