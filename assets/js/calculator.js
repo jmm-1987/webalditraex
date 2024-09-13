@@ -9,10 +9,10 @@ function showForm() {
 
     // Mostrar segundo aviso de confirmación con condiciones
     const condicionesConfirmar = confirm(
-        "La mercancía debe estar perfectamente embalada, paletizada para ser transportada en nuestra red.\n" +
+        "La mercancía debe estar perfectamente embalada y paletizada para ser transportada en nuestra red.\n" +
         "Esta mercancía transportada no es cubierta por nuestro seguro. Con lo cual, cualquier avería o daño, pérdida que surja en estas tipologías o similares en caso de aceptación de servicio no serán admitidas sus reclamaciones por parte de Alditraex.\n" +
         "No entramos en fincas, nuestras entregas y recogidas son puerta a puerta.\n" +
-        "Si el bulto una vez recibido en nuestro almacén difiriera de las medidas y pesos que nos han dicho ustedes en la petición del servicio, deben saber que primarán las medidas y pesos tomadas en nuestras instalaciones para el precio del servicio a pagar."
+        "Si el bulto una vez recibido en nuestro almacén difiriere de las medidas y pesos que nos han dicho ustedes en la petición del servicio, deben saber que primarán las medidas y pesos tomadas en nuestras instalaciones para el precio del servicio a pagar."
     );
 
     if (!condicionesConfirmar) {
@@ -53,15 +53,60 @@ function showForm() {
                 return tarifa[1];
             } else if (peso <= 30) {
                 return tarifa[2];
-            } else {
-                return peso * tarifa[3];
+            } else if (peso <= 40) {
+                return tarifa[3];
+            } else if (peso <= 50) {
+                return tarifa[4];
+            } else if (peso <= 60) {
+                return tarifa[5];
+            } else if (peso <= 70) {
+                return tarifa[6];
+            } else if (peso <= 80) {
+                return tarifa[7];
+            } else if (peso <= 90) {
+                return tarifa[8];
+            } else if (peso <= 100) {
+                return tarifa[9];
+            } else if (peso <= 150) {
+                return tarifa[10];
+            } else if (peso <= 200) {
+                return tarifa[11];
+            } else if (peso <= 250) {
+                return tarifa[12];
+            } else if (peso <= 300) {
+                return tarifa[13];
+            } else if (peso <= 350) {
+                return tarifa[14];
+            } else if (peso <= 400) {
+                return tarifa[15];
+            } else if (peso <= 450) {
+                return tarifa[16];
+            } else if (peso <= 500) {
+                return tarifa[17];
+            } else if (peso <= 600) {
+                return tarifa[18];
+            } else if (peso <= 700) {
+                return tarifa[19];
+            } else if (peso <= 800) {
+                return tarifa[20];
+            } else if (peso <= 900) {
+                return tarifa[21];
+            } else if (peso <= 1000) {
+                return tarifa[22];
+            } else if (peso <= 2000) {
+                return peso * tarifa[23];
+            } else if (peso <= 3000) {
+                return tarifa[24];
+            }
+            else {
+                return peso * tarifa[25];
             }
         }
 
         // Seleccionar la tarifa según la provincia de destino
         if (provinciaDestino === 'Cáceres' || provinciaDestino === 'Badajoz') {
             // Tabla 1
-            tarifaPorKg = [5, 7, 8, 0.054];
+            tarifaPorKg = [7.20, 9.15, 9.53, 10.72, 0.054];
         } else if (provinciaDestino === 'Madrid' || provinciaDestino === 'Sevilla') {
             // Tabla 2
             tarifaPorKg = [7, 9, 10, 0.070];
