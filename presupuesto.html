@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de envío</title>
+    <style>
+        /* Agregamos flexbox para los campos de dimensiones */
+        .dimensiones {
+            display: flex;
+            gap: 10px; /* Espacio entre los campos */
+        }
+
+        .dimensiones input {
+            width: 30%; /* Ajuste el ancho de los campos para que quepan en una fila */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            background-image: url('assets/img/fondoo.jpg');
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .section label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .section input, .section select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function calcularPrecio() {
+            // Obtener los valores del formulario
+            const provinciaDestino = document.getElementById("provincia-destino").value;
+            const bultos = parseInt(document.getElementById("bultos").value) || 0;
+            const peso = parseInt(document.getElementById("kg").value) || 0;
+            const largo = parseInt(document.getElementById("largo").value) || 0;
+            const corto = parseInt(document.getElementById("corto").value) || 0;
+            const alto = parseInt(document.getElementById("alto").value) || 0;
+
+            // Calcular volumen con la nueva fórmula
+            const volumen = (largo / 100 * corto / 100 * alto / 100) * 250; // Fórmula volumétrica
+            const pesoFacturable = Math.max(peso, volumen);
+
+            // Determinar tarifa según el grupo de provincias
+            let tarifa = 0;
+            let tarifaBase = 0;
+            let precioFinal = 0;
+
+            if (["Caceres", "Badajoz"].includes(provinciaDestino)) {
+                tarifa = 1; // Grupo 1
+            } else if (["Madrid", "Sevilla", "Cordoba"].includes(provinciaDestino)) {
+                tarifa = 2; // Grupo 2
+            } else {
+                tarifa = 3; // Grupo 3
+            }
+
+            // Determinar el precio de acuerdo a la tarifa y el peso facturable
+            if (tarifa === 1) {
+                if (pesoFacturable <= 100) {
+                    tarifaBase = 8;
+                } else if (pesoFacturable <= 200) {
+                    tarifaBase = 15;
+                } else {
+                    tarifaBase = pesoFacturable * 0.5;
+                }
+            } else if (tarifa === 2) {
+                if (pesoFacturable <= 100) {
+                    tarifaBase = 10;
+                } else if (pesoFacturable <= 200) {
+                    tarifaBase = 20;
+                } else {
+                    tarifaBase = pesoFacturable * 0.6;
+                }
+            } else if (tarifa === 3) {
+                if (pesoFacturable <= 100) {
+                    tarifaBase = 12;
+                } else if (pesoFacturable <= 300) {
+                    tarifaBase = 20;
+                } else {
+                    tarifaBase = pesoFacturable * 0.7;
+                }
+            }
+
+            // Calcular precio final considerando los bultos
+            precioFinal = tarifaBase * bultos;
+
+            // Mostrar resultado
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.textContent = `Peso facturable: ${pesoFacturable.toFixed(0)} kg\nEl precio calculado es: €${precioFinal.toFixed(2)}`;
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Introduce los datos</h1>
+    <form action="#" method="POST">
+        
+        <!-- Identificación de la mercancía -->
+        <div class="section">
+            <h2>Identificación de la mercancía</h2>
+            <label for="bultos">Bultos</label>
+            <input type="number" id="bultos" name="bultos" required>
+
+            <label for="kg">Kg</label>
+            <input type="number" id="kg" name="kg" required>
+
+            <div class="dimensiones">
+                <div>
+                    <label for="largo">Largo (cm)</label>
+                    <input type="number" id="largo" name="largo" required>
+                </div>
+                <div>
+                    <label for="corto">Corto (cm)</label>
+                    <input type="number" id="corto" name="corto" required>
+                </div>
+                <div>
+                    <label for="alto">Alto (cm)</label>
+                    <input type="number" id="alto" name="alto" required>
+                </div>
+            </div>
+
+            <label for="provincia-origen">Provincia de Origen</label>
+            <select id="provincia-origen" name="provincia-origen" required>
+                <option value="Caceres">Cáceres</option>
+                <option value="Badajoz">Badajoz</option>
+            </select>
+
+            <label for="provincia-destino">Provincia de Destino</label>
+            <select id="provincia-destino" name="provincia-destino" required>
+                <option value="A Coruna">A Coruña</option>
+                <option value="Alava">Álava</option>
+                <option value="Albacete">Albacete</option>
+                <option value="Alicante">Alicante</option>
+                <option value="Almeria">Almería</option>
+                <option value="Asturias">Asturias</option>
+                <option value="Avila">Ávila</option>
+                <option value="Badajoz">Badajoz</option>
+                <option value="Barcelona">Barcelona</option>
+                <option value="Burgos">Burgos</option>
+                <option value="Caceres">Cáceres</option>
+                <option value="Cadiz">Cádiz</option>
+                <option value="Cantabria">Cantabria</option>
+                <option value="Castellon">Castellón</option>
+                <option value="Ciudad Real">Ciudad Real</option>
+                <option value="Cordoba">Córdoba</option>
+                <option value="Cuenca">Cuenca</option>
+                <option value="Girona">Girona</option>
+                <option value="Granada">Granada</option>
+                <option value="Guadalajara">Guadalajara</option>
+                <option value="Guipuzcoa">Guipúzcoa</option>
+                <option value="Huelva">Huelva</option>
+                <option value="Huesca">Huesca</option>
+                <option value="Jaen">Jaén</option>
+                <option value="La Rioja">La Rioja</option>
+                <option value="Las Palmas">Las Palmas</option>
+                <option value="Leon">León</option>
+                <option value="Lleida">Lleida</option>
+                <option value="Lugo">Lugo</option>
+                <option value="Madrid">Madrid</option>
+                <option value="Malaga">Málaga</option>
+                <option value="Murcia">Murcia</option>
+                <option value="Navarra">Navarra</option>
+                <option value="Ourense">Ourense</option>
+                <option value="Palencia">Palencia</option>
+                <option value="Pontevedra">Pontevedra</option>
+                <option value="Salamanca">Salamanca</option>
+                <option value="Segovia">Segovia</option>
+                <option value="Sevilla">Sevilla</option>
+                <option value="Soria">Soria</option>
+                <option value="Tarragona">Tarragona</option>
+                <option value="Teruel">Teruel</option>
+                <option value="Toledo">Toledo</option>
+                <option value="Valencia">Valencia</option>
+                <option value="Valladolid">Valladolid</option>
+                <option value="Zamora">Zamora</option>
+                <option value="Zaragoza">Zaragoza</option>
+            </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <button type="button" onclick="calcularPrecio()">Calcular Precio</button>
+        </div>
+        
+        <div style="margin-top: 10px;">
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+
+    <div id="resultado"></div>
+
+</body>
+</html>
