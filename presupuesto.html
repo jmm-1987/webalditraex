@@ -77,6 +77,40 @@
             color: white;
             text-align: center;
         }
+
+        #cancelarPropuesta {
+            background-color: #ff4d4d; /* Rojo intenso */
+            color: white; /* Texto blanco */
+            border: none; /* Sin bordes */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px 20px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+            transition: background-color 0.3s ease; /* Suavizar el cambio de color */
+        }
+
+
+        #cancelarPropuesta:hover {
+            background-color: #e60000; /* Rojo más oscuro al pasar el ratón */
+        }
+
+        #aceptarPropuesta {
+            background-color: #4CAF50; /* Verde intenso */
+            color: white; /* Texto blanco */
+            border: none; /* Sin bordes */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px 20px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+            transition: background-color 0.3s ease; /* Suavizar el cambio de color */
+        }
+
+        #aceptarPropuesta:hover {
+            background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+        }
+        #resultadoTexto {
+            white-space: pre-line; /* Respeta saltos de línea en el texto */
+}
     </style>
    
 </head>
@@ -97,15 +131,21 @@
             <div class="dimensiones">
                 <div>
                     <label for="largo">Largo (cm)</label>
-                    <input type="number" id="largo" name="largo" required>
+                    <input type="number" id="largo" name="largo" min="1" max="200" required 
+                           oninput="validarInput(this)">
+                    <small id="largo-error" style="color: red; display: none;">Máximo admitido 240cm</small>
                 </div>
                 <div>
-                    <label for="corto">Corto (cm)</label>
-                    <input type="number" id="corto" name="corto" required>
+                    <label for="ancho">Ancho (cm)</label>
+                    <input type="number" id="ancho" name="ancho" min="1" max="200" required 
+                           oninput="validarInput(this)">
+                    <small id="ancho-error" style="color: red; display: none;">Máximo admitido 240cm</small>
                 </div>
                 <div>
                     <label for="alto">Alto (cm)</label>
-                    <input type="number" id="alto" name="alto" required>
+                    <input type="number" id="alto" name="alto" min="1" max="200" required 
+                           oninput="validarInput(this)">
+                    <small id="alto-error" style="color: red; display: none;">Máximo admitido 220cm</small>
                 </div>
             </div>
 
@@ -172,11 +212,34 @@
         </div>
         
         <div style="margin-top: 10px;">
-            <button type="submit">Enviar</button>
+            <button id="aceptarPresupuesto" type="submit" style="display: none;">Acepto el presupuesto</button>
         </div>
     </form>
 
     <div id="resultado"></div>
+    <script>
+        function validarInput(input) {
+            const min = parseInt(input.min, 10);
+            const max = parseInt(input.max, 10);
+            const value = parseInt(input.value, 10);
+            const errorElement = document.getElementById(input.id + '-error');
+        
+            if (value < min || value > max) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        }
+        </script>
+        <div id="resultadoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center;">
+            <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; width: 300px;">
+                <p id="resultadoTexto"></p>
+                <div style="margin-top: 20px;">
+                    <button id="aceptarPropuesta" style="margin-right: 10px;">Aceptar</button>
+                    <button id="cancelarPropuesta">Cancelar</button>
+                </div>
+            </div>
+        </div>
     <script src="assets/js/calculator.js"></script>
 </body>
 </html>

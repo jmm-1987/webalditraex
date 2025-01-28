@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de envío</title>
+    <style>
+        /* Agregamos flexbox para los campos de dimensiones */
+        .dimensiones {
+            display: flex;
+            gap: 10px; /* Espacio entre los campos */
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            background-image: url('assets/img/fondoo.jpg');
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 10px;
+            max-width: 600px;
+        }
+
+        .section label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .section input, .section select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        #cancelarPropuesta {
+            background-color: #ff4d4d; /* Rojo intenso */
+            color: white; /* Texto blanco */
+            border: none; /* Sin bordes */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px 20px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+            transition: background-color 0.3s ease; /* Suavizar el cambio de color */
+        }
+
+        #cancelarPropuesta:hover {
+            background-color: #e60000; /* Rojo más oscuro al pasar el ratón */
+        }
+
+        #aceptarPropuesta {
+            background-color: #4CAF50; /* Verde intenso */
+            color: white; /* Texto blanco */
+            border: none; /* Sin bordes */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px 20px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+            transition: background-color 0.3s ease; /* Suavizar el cambio de color */
+        }
+
+        #aceptarPropuesta:hover {
+            background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+        }
+
+        #resultadoTexto {
+            white-space: pre-line; /* Respeta saltos de línea en el texto */
+            padding: 20px;
+            padding-top: 2px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: -10px;
+            font-size: 16px;
+            color: #333;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+ 
+        }
+        #resultadoTitulo {
+            white-space: pre-line; /* Respeta saltos de línea en el texto */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+            font-size: 16px;
+            color: #333;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <!-- Aquí es donde mostrarás el texto dentro de un recuadro -->
+    <p id="resultadoTitulo" style="font-weight: bold; text-align: center;">Detalles del presupuesto:</p>
+
+
+    <div id="resultadoTexto">
+        <p style="margin-bottom: 5px;">
+            Medidas del bulto: <span id="largo"></span> <span id="ancho"></span> <span id="alto"></span>
+        </p>
+        <p id="peso" style="margin-bottom: 0px;"></p>
+        <p id="precio" style="margin-bottom: 0px;"></p>
+        VALIDEZ DEL PRESUPUESTO: 15 DÍAS DESDE SU COMUNICACIÓN: </br>MUY IMPORTANTE A TENER EN CUENTA PARA
+        ACEPTACIÓN DE PRESUPUESTO. </br> La mercancía debe estar perfectamente embalada, paletizada para ser transportada en nuestra red.
+        **Esta mercancía transportada no es cubierta por nuestro seguro. Con lo cual, cualquier avería o daño, pérdida
+        que surja en estas tipologías o similares, en caso de aceptación de servicio no serán admitidas sus reclamaciones
+        por parte de Alditraex.
+        *No entramos en fincas, nuestras entregas y recogidas son puerta a puerta.
+        *Si el bulto, una vez recibido en nuestro almacén, difiriera de las medidas y pesos que nos han dicho ustedes en
+        la petición del servicio, deben saber que primarán las medidas y pesos tomadas en nuestras instalaciones para el
+        precio del servicio a pagar.
+      
+        <!-- Botones de aceptar y cancelar -->
+        <div class="button-container" style="margin-top: 20px; display: flex; justify-content: space-between;">
+            <button id="aceptarPropuesta" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; width: 48%;">Aceptar</button>
+            <button id="cancelarPropuesta" style="background-color: #ff4d4d; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; width: 48%;">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        function validarInput(input) {
+            const min = parseInt(input.min, 10);
+            const max = parseInt(input.max, 10);
+            const value = parseInt(input.value, 10);
+            const errorElement = document.getElementById(input.id + '-error');
+        
+            if (value < min || value > max) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        }
+
+        window.onload = function() {
+    // Obtener los parámetros de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const peso = urlParams.get('peso');
+    const precio = urlParams.get('precio');
+    const largo = urlParams.get('largo');
+    const ancho = urlParams.get('ancho');
+    const alto = urlParams.get('alto');
+
+    // Mostrar los resultados en los elementos correspondientes en la página
+    document.getElementById('peso').textContent = `Peso facturable: ${peso} kg`;
+    document.getElementById('precio').textContent = `El precio calculado es: ${precio}€ + IVA`;
+    document.getElementById('largo').textContent = `Largo: ${largo} cm`;
+    document.getElementById('ancho').textContent = `Ancho: ${ancho} cm`;
+    document.getElementById('alto').textContent = `Alto: ${alto} cm`;
+};
+    </script>
+    <script src="assets/js/calculator.js"></script>
+</body>
+</html>
